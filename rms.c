@@ -60,7 +60,7 @@ void add_product()
         }
     }
     prod.id = max_id + 1;
-
+    printf("--------------------------------\n");
     printf("Enter the product name: ");
     scanf("%s", prod.product_name);
     printf("Enter the quantity: ");
@@ -69,7 +69,7 @@ void add_product()
     scanf("%f", &prod.price);
     fprintf(product, "%d %s %d %.2f\n", prod.id, prod.product_name, prod.quantity, prod.price);
     fclose(product);
-    printf("Product added successfully.\n");
+    printf("Product added successfully.\n\n");
     yes_no();
 }
 
@@ -77,7 +77,7 @@ void show_product()
 {
     FILE *product;
     product = fopen("products.txt", "r");
-
+    printf("--------------------------------\n");
     printf("Product List:\n");
     while (fscanf(product, "%d %s %d %f", &prod.id, prod.product_name, &prod.quantity, &prod.price) == 4)
     {
@@ -85,11 +85,11 @@ void show_product()
         printf("Product Name: %s\n", prod.product_name);
         printf("Quantity: %d\n", prod.quantity);
         printf("Price: %.2f\n", prod.price);
-        printf("--------------------------\n");
+        printf("--------------------------\n\n");
     }
 
     fclose(product);
-    printf("End of product list.\n");
+    printf("End of product list.\n\n");
     yes_no();
 }
 
@@ -99,18 +99,20 @@ void search_product()
     char search[50];
     int found = 0;
     product = fopen("products.txt", "r");
-    printf("Enter Product Name: ");
+    printf("\nEnter Product Name: ");
     scanf("%s", search);
 
     while (fscanf(product, "%d %s %d %f", &prod.id, prod.product_name, &prod.quantity, &prod.price) == 4)
     {
         if (strcasecmp(prod.product_name, search) == 0)
         {
+            printf("--------------------------\n");
+            printf("Product Found:\n");
             printf("ID: %d\n", prod.id);
             printf("Product Name: %s\n", prod.product_name);
             printf("Quantity: %d\n", prod.quantity);
             printf("Price: %.2f\n", prod.price);
-            printf("--------------------------\n");
+            printf("--------------------------\n\n");
             found = 1;
             break;
         }
@@ -118,7 +120,7 @@ void search_product()
     fclose(product);
     if (found == 0)
     {
-        printf("Product not found.\n");
+        printf("Product not found.\n\n");
     }
     yes_no();
 }
@@ -136,7 +138,7 @@ void delete_product()
     {
         if (strcasecmp(delete_name, prod.product_name) == 0)
         {
-            printf("DATA FOUND. DELETING...\n");
+            printf("DATA FOUND. DELETING...\n\n");
             found = 1;
         }
         else
@@ -217,11 +219,14 @@ void show_transaction()
     FILE *transaction_file = fopen("transactions.txt", "r");
     while (fscanf(transaction_file, "%s %d %f", trans.product_name, &trans.quantity_sold, &trans.total_earned) == 3)
     {
+        printf("\n--------------------------\n");
+        printf("Transaction Details:\n");
         printf("Product Name: %s\n", trans.product_name);
         printf("Quantity Sold: %d\n", trans.quantity_sold);
         printf("Total Earned: %.2f\n", trans.total_earned);
         printf("--------------------------\n");
     }
+    yes_no();
 }
 
 int menu()
@@ -237,7 +242,7 @@ int menu()
     printf("3. Search Product\n");
     printf("4. Delete Product\n");
     printf("5. Show Transaction\n");
-    printf("6. Login\n");
+    printf("6. Login\n\n");
     printf("Enter your choice: ");
     scanf("%d", &choice);
 
